@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-           
+            string nSearch = "d";
             const string BASIC = "https://www.wikipedia.org/";
 
             webPage wikipedia = new webPage();
@@ -13,20 +13,23 @@
             searchEngine newEngine = new searchEngine();
             newEngine.scour(wikipedia);
 
-            Console.WriteLine("please enter a keyword for search.");
-            string nSearch = Console.ReadLine();
-            if (newEngine.keyTable.ContainsKey(nSearch))
+            while (nSearch != "")
             {
-                foreach (webPage p in newEngine.keyTable[nSearch])
+                Console.WriteLine("please enter a keyword for search.");
+                nSearch = Console.ReadLine();
+                if (newEngine.keyTable.ContainsKey(nSearch))
                 {
-                    Console.WriteLine($"Keyword appears on {p.url}");
+                    foreach (webPage p in newEngine.keyTable[nSearch])
+                    {
+                        Console.WriteLine($"Keyword appears on {p.url}");
+                    }
                 }
-            }
-            else
-            {
-                Console.WriteLine("keyword not found");
+                else
+                {
+                    Console.WriteLine("keyword not found");
 
-                
+
+                }
             }
 
 
