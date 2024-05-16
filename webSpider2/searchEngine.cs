@@ -39,7 +39,15 @@ namespace webSpider2
 
         public void scour(webPage p)
         {
-            getHTML(p);
+            try
+            {
+                getHTML(p);
+            }
+            catch (Exception e) 
+            {
+                Console.WriteLine($"failed to index url {e.Message} {p.url}");
+                return;
+            }
             string tHTML = p.allHTML;
             
             
@@ -57,7 +65,7 @@ namespace webSpider2
                 webPage newP = new webPage();
                 newP.url = link;
                 
-                if (allURL.Count < 10)
+                if (allURL.Count < 100)
                 {
                     scour(newP);
                 }
