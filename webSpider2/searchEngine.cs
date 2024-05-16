@@ -41,7 +41,14 @@ namespace webSpider2
         {
             getHTML(p);
             string tHTML = p.allHTML;
-            Console.WriteLine($"Indexing {p.url}");
+            
+            
+            if(allURL.Contains(p.url))
+            {
+                Console.WriteLine($"Already indexed {p.url}");
+                return;
+            }
+            allURL.Add(p.url);
             foreach (Match m in Regex.Matches(tHTML, "<[aA][^>]+href\\s*=\\s*\"([^\"]*)"))
             {
                 string link = fixUrl(p, m.Groups[1].Value);
@@ -50,7 +57,7 @@ namespace webSpider2
                 webPage newP = new webPage();
                 newP.url = link;
                 
-                if (allURL.Count < 10 && !allURL.Contains(link))
+                if (allURL.Count < 10)
                 {
                     scour(newP);
                 }
